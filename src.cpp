@@ -46,16 +46,20 @@ vector<vector<int> > build_graph(int n,vector<string> str)
 	}
 	return g;
 }
-vector<string> get_max(int n,vector<vector<int> > g,vector<string> str,int op)
+vector<string> get_max(int n,vector<vector<int> > g,vector<string> str,
+int op,char start,char end,set<char> ban)
 //op==0 : max word cnt,op==1 : max character cnt
 {
 	vector<int> rd(n,0),dp(n,0),pre(n,-1);
 	queue<int> q;
+	int inf=1<<28;
 	for(int i=0;i<n;i++)
 	{
 		for(auto j:g[i])
 			rd[j]++;
 		dp[i]=(op==1?str[i].size():1);
+		if(start!='0'&&str[i][0]!=start) dp[i]=-inf;
+		if(ban.find(str[i][0])!=ban.end()) dp[i]=-inf;
 	}
 	for(int i=0;i<n;i++)
 		if(rd[i]==0)
@@ -66,7 +70,7 @@ vector<string> get_max(int n,vector<vector<int> > g,vector<string> str,int op)
 		q.pop();
 		for(auto i:g[now])
 		{
-			if(dp[i]<dp[now]+(op==1?str[i].size():1))
+			if(!dp[i]<dp[now]+(op==1?str[i].size():1))
 			{
 				dp[i]=dp[now]+(op==1?str[i].size():1);
 				pre[i]=now;
@@ -79,7 +83,7 @@ vector<string> get_max(int n,vector<vector<int> > g,vector<string> str,int op)
 	//cout<<endl;
 	int pos,mx=0;
 	for(int i=0;i<n;i++)
-		if(dp[i]>mx)
+		if(dp[i]>mx&&(end=='0'||str[i].back()==end))
 			mx=dp[i],pos=i;
 	cout<<mx<<" "<<pos<<"\n";
 	vector<string> res;
@@ -162,6 +166,12 @@ int main()
 	vector<string> all_str=input();
 	int sz=all_str.size();
 	vector<vector<int> > g=build_graph(sz,all_str);
+	
+	//test
+	char start='0',end='0',b[100]={'b'};
+	set<char> ban;
+	for(int i=0;i<26;i++) ban.insert(b[i]);
+	
 	if(!check(sz,g))
 	{
 		cout<<"fucked";
@@ -170,10 +180,10 @@ int main()
 	get_all(sz,g,all_str,-1);
 	print_all();
 	cout<<"#####\n";
-	vector<string> ans=get_max(sz,g,all_str,0);
+	vector<string> ans=get_max(sz,g,all_str,0,start,end,ban);
 	print_ans(ans);
 	cout<<"#####\n";
-	ans=get_max(sz,g,all_str,1);
+	ans=get_max(sz,g,all_str,1,start,end,ban);
 	print_ans(ans);
 	
 	
