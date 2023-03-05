@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import *
 from InputView import InputView
 from OptionView import OptionView
 from OutputView import OutputView
+from WarningView import WarningView
 
 
 class MainView(QWidget):
@@ -58,6 +59,8 @@ class MainView(QWidget):
         # todo 调用计算函数
         result = "xxx"
         self.outputView.setOutputView(result)
+        warn = WarningView("出现了blabla错误")
+        warn.show()
 
 
 if __name__ == "__main__":
