@@ -186,7 +186,7 @@ int op,char start,char end,set<char> ban)
 	}
 	vis[x]=0;
 }
-int gen_chain_word(char* words[], int len, char* result[],int type, char head, char tail,char banned,bool enable_loop)
+int gen_chain_word(char* words[], int len, char* result[], char head, char tail,char banned,bool enable_loop)
 {
 	vector<string> all_str;
 	for(int i=0;i<len;i++) all_str.push_back(words[i]);
@@ -200,7 +200,7 @@ int gen_chain_word(char* words[], int len, char* result[],int type, char head, c
 		now_max=0;
 		now.clear();
 		vis=vector<int>(sz,0);
-		circle_max(sz,-1,g,all_str,type,head,tail,ban);
+		circle_max(sz,-1,g,all_str,0,head,tail,ban);
 		int cnt=0;
 		for(auto x:ans_circle)
 		{
@@ -215,7 +215,45 @@ int gen_chain_word(char* words[], int len, char* result[],int type, char head, c
 			cout<<"fucked";
 			return -1;
 		}
-		vector<string> ans=get_max(sz,g,all_str,type,head,tail,ban);
+		vector<string> ans=get_max(sz,g,all_str,0,head,tail,ban);
+		int cnt=0;
+		for(auto x:ans)
+		{
+			result[cnt++]=(char *)x.data();
+		}
+		return 0;
+	}
+}
+int gen_chain_word_char(char* words[], int len, char* result[],char head, char tail,char banned,bool enable_loop)
+{
+	vector<string> all_str;
+	for(int i=0;i<len;i++) all_str.push_back(words[i]);
+	vector<vector<int> > g=build_graph(all_str);
+	int sz=all_str.size();
+	set<char> ban;
+	if(banned!='0') ban.insert(banned);
+	if(enable_loop)
+	{
+		ans_circle.clear();
+		now_max=0;
+		now.clear();
+		vis=vector<int>(sz,0);
+		circle_max(sz,-1,g,all_str,1,head,tail,ban);
+		int cnt=0;
+		for(auto x:ans_circle)
+		{
+			result[cnt++]=(char *)x.data();
+		}
+		return 0;
+	}
+	else
+	{
+		if(!check(sz,g))
+		{
+			cout<<"fucked";
+			return -1;
+		}
+		vector<string> ans=get_max(sz,g,all_str,1,head,tail,ban);
 		int cnt=0;
 		for(auto x:ans)
 		{
