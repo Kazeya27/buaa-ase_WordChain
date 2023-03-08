@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+ifstream readFile;
 int isletter(char c)
 {
 	return (c>='a'&&c<='z')||(c>='A'&&c<='Z');
@@ -7,16 +8,11 @@ int isletter(char c)
 vector<string> input()
 {
 	vector<string> res;
-	while(1)
+	string s;
+	while(getline(readFile,s))
 	{
-		char s[1010];
 		string now;
-		cin.getline(s,1000);
-		if(s[0]=='*') break;
-		//use * to end input(test)
-		//remember to delete it!
-		int len=strlen(s);
-		for(int i=0;i<len;i++)
+		for(int i=0;i<s.size();i++)
 		{
 			if(!isletter(s[i]))
 			{
@@ -31,8 +27,7 @@ vector<string> input()
 }
 vector<vector<int> > build_graph(vector<string> str)
 {
-	sort(str.begin(),str.end());
-	int n=unique(str.begin(),str.end())-str.begin();
+	int n=str.size();
 	vector<vector<int> > g(n,vector<int>());
 	for(int i=0;i<n;i++)
 	{
@@ -58,34 +53,38 @@ int op,char start,char end,set<char> ban)
 	{
 		for(auto j:g[i])
 			rd[j]++;
-		dp[i]=(op==1?str[i].size():1);
+		if(op==1) dp[i]=str[i].size();
+		else dp[i]=1;
 		if(start!='0'&&str[i][0]!=start) dp[i]=-inf;
 		if(ban.find(str[i][0])!=ban.end()) dp[i]=-inf;
 	}
 	for(int i=0;i<n;i++)
 		if(rd[i]==0)
 			q.push(i);
+	//for(int i=0;i<n;i++) cout<<dp[i]<<" \n"[i==n-1];
 	while(!q.empty())
 	{
 		int now=q.front();
 		q.pop();
 		for(auto i:g[now])
 		{
-			if(!dp[i]<dp[now]+(op==1?str[i].size():1))
+			int cd=1;
+			if(op==1) cd=str[i].size();
+			if(ban.find(str[i][0])==ban.end()&&dp[i]<dp[now]+cd)
 			{
-				dp[i]=dp[now]+(op==1?str[i].size():1);
+				dp[i]=dp[now]+cd;
 				pre[i]=now;
 			}
 			rd[i]--;
 			if(rd[i]==0) q.push(i);
 		}
 	}
-	//for(int i=0;i<n;i++) cout<<dp[i]<<" ";
-	//cout<<endl;
-	int pos,mx=0;
+	//for(int i=0;i<n;i++) cout<<dp[i]<<" \n"[i==n-1];
+	int pos=0,mx=0;
 	for(int i=0;i<n;i++)
 		if(dp[i]>mx&&(end=='0'||str[i].back()==end))
 			mx=dp[i],pos=i;
+	
 	//cout<<mx<<" "<<pos<<"\n";
 	vector<string> res;
 	while(pos!=-1)
@@ -127,6 +126,14 @@ vector<string> ans_circle;
 vector<string> now;
 vector<int> vis;
 int now_max,char_len;
+void init(int sz)
+{
+	vis=vector<int>(sz,0);
+	all_list.clear();
+	ans_circle.clear();
+	now.clear();
+	now_max=char_len=0;
+}
 void get_all(int n,vector<vector<int> > g,vector<string> str,int x)
 {
 	if(x==-1)
@@ -305,48 +312,82 @@ void print_all()
 }
 int main(int argc,char* argv[])
 {
+	readFile.open(argv[argc-1], ios::in);
 	vector<string> all_str=input();
-	int sz=all_str.size();
+	sort(all_str.begin(),all_str.end());
+	int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
+	//print_ans(all_str);
 	vector<vector<int> > g=build_graph(all_str);
-	
+	/*char word[10][10]={"aec","cef","ab","bdfsdfrrd","cead"};
+	char result[10][10];
+	gen_chain_word(word
+	,5,result
+	,'0','0','0',0);
+	for(int i=0;i<10;i++) cout<<result[i]<<"\n";*/
 	
 	//test
 	char start='0',end='0',b[100]={'b'};
-	int op=0;
+	int op=0,loop=0,qall=0;
 	set<char> ban;
-	for(int i=1;i<argc;i++)
+	//string cmd[10]={"-w","-c","-h","-t","-j","-r","-n"};
+	for(int i=1;i<argc-1;i++)
 	{
-		if(argv[i]=="-w") op=0;
-		else if(argv[i]=="-c") op=1;
-		else if(argv[i]=="-h") 
+		string ag=argv[i];
+		if(ag=="-w") op=0;
+		else if(ag=="-c") op=1;
+		else if(ag=="-h") 
 		{
 			i++;
 			start=argv[i][0];
 		}
-		else if(argv[i]=="-t")
+		else if(ag=="-t")
 		{
 			i++;
 			end=argv[i][0];
 		}
-		else if(argv[i]=="-j")
+		else if(ag=="-j")
 		{
 			i++;
 			ban.insert(argv[i][0]);
 		}
+		else if(ag=="-r") 
+		{
+			loop=1;
+		}
+		else if(ag=="-n") 
+		{
+			qall=1;
+		}
 	}
-	vis=vector<int>(sz,0);
-	circle_max(sz,-1,g,all_str,op,start,end,ban);
-	//vector<string> ans=get_max(sz,g,all_str,op,start,end,ban);
-	print_ans(ans_circle);
-	//test
-	/*
-	if(!check(sz,g))
+	if(qall==1)
 	{
-		cout<<"fucked";
+		init(sz);
+		get_all(sz,g,all_str,-1);
+		print_all();
 		return 0;
 	}
-	get_all(sz,g,all_str,-1);
-	print_all();
+	if(loop==0)
+	{
+		if(!check(sz,g))
+		{
+			cout<<"fucked";
+			return -1;
+		}	
+		vector<string> ans=get_max(sz,g,all_str,op,start,end,ban);
+		print_ans(ans);
+		return 0;
+	}
+	else
+	{
+		init(sz);
+		circle_max(sz,-1,g,all_str,op,start,end,ban);
+		print_ans(ans_circle);
+		return 0;
+	}
+	//test
+	/*
+	
+	
 	cout<<"#####\n";
 	vector<string> ans=get_max(sz,g,all_str,0,start,end,ban);
 	print_ans(ans);
