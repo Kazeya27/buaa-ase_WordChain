@@ -174,7 +174,9 @@ int op,char start,char end,set<char> ban)
 	if(vis[x]==1) return;
 	if(ban.find(str[x][0])!=ban.end()) return;
 	vis[x]=1;
-	int len=(op==0)?now.size():char_len;
+	int len;
+	if(op==0) len=now.size();
+	else len=char_len;
 	if(len>max(now_max,1)) 
 	{
 		if(end=='0'||end==str[x].back())
