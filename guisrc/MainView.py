@@ -1,8 +1,7 @@
 import sys
 import re
 
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+from Process import *
 from PyQt5.QtWidgets import *
 
 from InputView import InputView
@@ -57,8 +56,16 @@ class MainView(QWidget):
         words = self.getWords()
         print(words)
         # todo 调用计算函数
-        result = "xxx"
-        self.outputView.setOutputView(result)
+        if model == 0:
+            results = gen_chains_all(words)
+        elif model == 1:
+            results = gen_chain_word(words, head, tail, banLetter, enableLoop)
+        else:
+            results = gen_chain_char(words, head, tail, banLetter, enableLoop)
+        text = ""
+        for result in results:
+            text += result + "\n"
+        self.outputView.setOutputView(text)
         warn = WarningView("出现了blabla错误")
         warn.show()
 
