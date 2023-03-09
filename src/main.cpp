@@ -1,4 +1,11 @@
-#include<bits/stdc++.h>
+#include"main.h"
+#include<iostream>
+#include<vector>
+#include<set>
+#include<queue>
+#include<string>
+#include<fstream>
+#include<algorithm>
 using namespace std;
 ifstream readFile;
 int isletter(char c)
