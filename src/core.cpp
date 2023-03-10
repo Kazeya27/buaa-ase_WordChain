@@ -1,3 +1,4 @@
+#include "core.h"
 #include<iostream>
 #include<vector>
 #include<set>
@@ -30,7 +31,7 @@ vector<string> input()
 		}
 		if(now.size()>0) res.push_back(now);
 	}
-	return res;	
+	return res;
 }
 vector<vector<int> > build_graph(vector<string> str)
 {
@@ -50,15 +51,15 @@ vector<vector<int> > build_graph(vector<string> str)
 		for(int j=0;j<n;j++)
 		{
 			if(i==j) continue;
-			if(str[i].back()==str[j].front()) 
+			if(str[i].back()==str[j].front())
 			{
 				int ai=str[i].back()-'a',aj=str[j].back()-'a';
 				if(z[i]==1&&z[j]==1) continue;
-				if(z[i]==1) 
+				if(z[i]==1)
 				{
 					if(zihuan[ai].back()==i) g[zihuan[ai].back()].push_back(j);
 				}
-				else if(z[j]==1) 
+				else if(z[j]==1)
 				{
 					if(zihuan[aj].back()==j) g[i].push_back(zihuan[aj].front());
 				}
@@ -122,7 +123,7 @@ int op,char start,char end,set<char> ban)
 	for(int i=0;i<n;i++)
 		if(dp[i]>mx&&(end=='\0'||str[i].back()==end))
 			mx=dp[i],pos=i;
-	
+
 	//cout<<mx<<" "<<pos<<"\n";
 	vector<string> res;
 	while(pos!=-1)
@@ -215,7 +216,7 @@ int op,char start,char end,set<char> ban)
 	int len;
 	if(op==0) len=now.size();
 	else len=char_len;
-	if(len>max(now_max,1)) 
+	if(len>max(now_max,1))
 	{
 		if(end=='\0'||end==str[x].back())
 		{
@@ -381,6 +382,11 @@ void print_all()
 		fout<<"\n";
 	}
 }
+
+void testDll() {
+    cout << "eee" << endl;
+}
+
 int main(int argc,char* argv[])
 {
 	if(argc<2)
@@ -410,25 +416,25 @@ int main(int argc,char* argv[])
 	for(int i=1;i<argc-1;i++)
 	{
 		string ag=argv[i];
-		if(ag=="-w") 
+		if(ag=="-w")
 		{
-			if(op!=-1) 
+			if(op!=-1)
 			{
 				cout<<"wrong para!";
 				return -3;
 			}
 			op=0;
 		}
-		else if(ag=="-c") 
+		else if(ag=="-c")
 		{
-			if(op!=-1) 
+			if(op!=-1)
 			{
 				cout<<"wrong para!";
 				return -3;
 			}
 			op=1;
 		}
-		else if(ag=="-h") 
+		else if(ag=="-h")
 		{
 			i++;
 			start=argv[i][0];
@@ -443,11 +449,11 @@ int main(int argc,char* argv[])
 			i++;
 			ban.insert(argv[i][0]);
 		}
-		else if(ag=="-r") 
+		else if(ag=="-r")
 		{
 			loop=1;
 		}
-		else if(ag=="-n") 
+		else if(ag=="-n")
 		{
 			qall=1;
 		}
@@ -470,7 +476,7 @@ int main(int argc,char* argv[])
 		{
 			cout<<"fucked";
 			return -1;
-		}	
+		}
 		vector<string> ans=get_max(sz,g,all_str,op,start,end,ban);
 		print_ans(ans);
 		return 0;
@@ -484,8 +490,8 @@ int main(int argc,char* argv[])
 	}
 	//test
 	/*
-	
-	
+
+
 	cout<<"#####\n";
 	vector<string> ans=get_max(sz,g,all_str,0,start,end,ban);
 	print_ans(ans);
@@ -493,5 +499,5 @@ int main(int argc,char* argv[])
 	ans=get_max(sz,g,all_str,1,start,end,ban);
 	print_ans(ans);
 	*/
-	
+
 }
