@@ -213,7 +213,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 		int cnt=0;
 		for(auto x:ans_circle)
 		{
-			result[cnt++]=(char *)x.data();
+			result[cnt++]=const_cast<char*>(x.data());
 		}
 		return 0;
 	}
@@ -228,7 +228,8 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 		int cnt=0;
 		for(auto x:ans)
 		{
-			result[cnt++]=(char *)x.data();
+			result[cnt++]=const_cast<char*>(x.data());
+			//cout<<x<<" "<<x.data()<<" "<<result[cnt-1]<<"\n";
 		}
 		return 0;
 	}
@@ -251,7 +252,7 @@ int gen_chain_word_char(char* words[], int len, char* result[],char head, char t
 		int cnt=0;
 		for(auto x:ans_circle)
 		{
-			result[cnt++]=(char *)x.data();
+			result[cnt++]=const_cast<char*>(x.data());
 		}
 		return 0;
 	}
@@ -266,7 +267,8 @@ int gen_chain_word_char(char* words[], int len, char* result[],char head, char t
 		int cnt=0;
 		for(auto x:ans)
 		{
-			result[cnt++]=(char *)x.data();
+			result[cnt++]=const_cast<char*>(x.data());
+			cout<<result[0]<<"\n";
 		}
 		return 0;
 	}
@@ -289,8 +291,7 @@ int gen_chains_all(char* words[], int len, char* result[])
 	{
 		string tmp="";
 		for(auto y:x) tmp+=y,tmp+=" ";
-		result[cnt++]=(char *)tmp.data();
-		cout<<"\n";
+		result[cnt++]=const_cast<char*>(tmp.data());
 	}
 	return 0;
 }
@@ -320,13 +321,11 @@ int main(int argc,char* argv[])
 	int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
 	//print_ans(all_str);
 	vector<vector<int> > g=build_graph(all_str);
-	/*char word[10][10]={"aec","cef","ab","bdfsdfrrd","cead"};
-	char result[10][10];
-	gen_chain_word(word
-	,5,result
-	,'0','0','0',0);
-	for(int i=0;i<10;i++) cout<<result[i]<<"\n";*/
-	
+	char* word[10]={"aec","cef","fb","bdfsdfrrd","dear"};
+	char* result[10];
+	gen_chain_word_char(word,5,result,'0','0','0',0);
+	for(int i=0;i<5;i++) cout<<result[i]<<"\n";
+	return 0; 
 	//test
 	char start='0',end='0',b[100]={'b'};
 	int op=0,loop=0,qall=0;
