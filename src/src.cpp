@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 ifstream readFile;
+ofstream fout("output.txt");
 int isletter(char c)
 {
 	return (c>='a'&&c<='z')||(c>='A'&&c<='Z');
@@ -297,43 +298,79 @@ int gen_chains_all(char* words[], int len, char* result[])
 }
 void print_ans(vector<string> ans)
 {
-	cout<<ans.size()<<"\n";
+	if(ans.size()<=1)
+	{
+		fout<<"no word chain\n";
+		return;
+	}
+	fout<<ans.size()<<"\n";
 	for(auto s:ans)
-		cout<<s<<"\n";
+		fout<<s<<"\n";
 }
 void print_all()
 {
-	cout<<all_list.size()<<"\n";
+	if(all_list.size()<=1)
+	{
+		fout<<"no word chain\n";
+		return;
+	}
+	fout<<all_list.size()<<"\n";
 	for(auto x:all_list)
 	{
 		for(auto y:x)
 		{
-			cout<<y<<" ";
+			fout<<y<<" ";
 		}
-		cout<<"\n";
+		fout<<"\n";
 	}
 }
 int main(int argc,char* argv[])
 {
+	if(argc<2)
+	{
+		cout<<"too few para!";
+		return -2;
+	}
 	readFile.open(argv[argc-1], ios::in);
+	if(!readFile.is_open())
+	{
+		cout<<"open file failed!";
+		return -3;
+	}
 	vector<string> all_str=input();
 	sort(all_str.begin(),all_str.end());
 	int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
 	//print_ans(all_str);
 	vector<vector<int> > g=build_graph(all_str);
-	char* word[10]={"aec","cef","fb","bdfsdfrrd","dear"};
-	char* result[10];
-	gen_chain_word_char(word,5,result,'0','0','0',0);
+	//char* word[10]={"aec","cef","fb","bdfsdfrrd","dear"};
+	//char* result[10];
+	//gen_chain_word_char(word,5,result,'0','0','0',0);
 	//test
 	char start='0',end='0',b[100]={'b'};
-	int op=0,loop=0,qall=0;
+	int op=-1,loop=0,qall=0;
 	set<char> ban;
 	//string cmd[10]={"-w","-c","-h","-t","-j","-r","-n"};
 	for(int i=1;i<argc-1;i++)
 	{
 		string ag=argv[i];
-		if(ag=="-w") op=0;
-		else if(ag=="-c") op=1;
+		if(ag=="-w") 
+		{
+			if(op!=-1) 
+			{
+				cout<<"wrong para!";
+				return -3;
+			}
+			op=0;
+		}
+		else if(ag=="-c") 
+		{
+			if(op!=-1) 
+			{
+				cout<<"wrong para!";
+				return -3;
+			}
+			op=1;
+		}
 		else if(ag=="-h") 
 		{
 			i++;
@@ -356,6 +393,11 @@ int main(int argc,char* argv[])
 		else if(ag=="-n") 
 		{
 			qall=1;
+		}
+		else
+		{
+			cout<<"wrong para!";
+			return -3;
 		}
 	}
 	if(qall==1)
