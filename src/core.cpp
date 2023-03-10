@@ -1,4 +1,10 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<set>
+#include<queue>
+#include<string>
+#include<fstream>
+#include<algorithm>
 using namespace std;
 ifstream readFile;
 ofstream fout("output.txt");
