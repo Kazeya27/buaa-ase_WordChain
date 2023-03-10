@@ -1,4 +1,11 @@
-#include<bits/stdc++.h>
+#include"main.h"
+#include<iostream>
+#include<vector>
+#include<set>
+#include<queue>
+#include<string>
+#include<fstream>
+#include<algorithm>
 using namespace std;
 ifstream readFile;
 int isletter(char c)
@@ -215,7 +222,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 		{
 			result[cnt++]=const_cast<char*>(x.data());
 		}
-		return 0;
+		return cnt;
 	}
 	else
 	{
@@ -231,10 +238,10 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 			result[cnt++]=const_cast<char*>(x.data());
 			//cout<<x<<" "<<x.data()<<" "<<result[cnt-1]<<"\n";
 		}
-		return 0;
+		return cnt;
 	}
 }
-int gen_chain_word_char(char* words[], int len, char* result[],char head, char tail,char banned,bool enable_loop)
+int gen_chain_char(char* words[], int len, char* result[],char head, char tail,char banned,bool enable_loop)
 {
 	vector<string> all_str;
 	for(int i=0;i<len;i++) all_str.push_back(words[i]);
@@ -254,7 +261,7 @@ int gen_chain_word_char(char* words[], int len, char* result[],char head, char t
 		{
 			result[cnt++]=const_cast<char*>(x.data());
 		}
-		return 0;
+		return cnt;
 	}
 	else
 	{
@@ -268,9 +275,9 @@ int gen_chain_word_char(char* words[], int len, char* result[],char head, char t
 		for(auto x:ans)
 		{
 			result[cnt++]=const_cast<char*>(x.data());
-			//cout<<result[0]<<"\n";
+			cout<<result[0]<<"\n";
 		}
-		return 0;
+		return cnt;
 	}
 }
 int gen_chains_all(char* words[], int len, char* result[])
@@ -291,9 +298,17 @@ int gen_chains_all(char* words[], int len, char* result[])
 	{
 		string tmp="";
 		for(auto y:x) tmp+=y,tmp+=" ";
+<<<<<<< HEAD:src/src.cpp
 		result[cnt++]=const_cast<char*>(tmp.data());
+=======
+		result[cnt++]=(char *)tmp.data();
+		// cout<<"\n";
+		cout << cnt << " ";
+		cout << result[0] << endl;
+>>>>>>> 87d0904a2307061d2a22d9fc36de0ba4af0b4703:src/main.cpp
 	}
-	return 0;
+	cout << result[0] << endl;
+	return cnt;
 }
 void print_ans(vector<string> ans)
 {
@@ -313,6 +328,16 @@ void print_all()
 		cout<<"\n";
 	}
 }
+
+void testDll() {
+	cout << "hello world" << endl;
+}
+
+void testStr(char* rst[]) {
+	rst[0] = "hello";
+	rst[1] = "world";
+}
+
 int main(int argc,char* argv[])
 {
 	readFile.open(argv[argc-1], ios::in);
@@ -324,6 +349,8 @@ int main(int argc,char* argv[])
 	char* word[10]={"aec","cef","fb","bdfsdfrrd","dear"};
 	char* result[10];
 	gen_chain_word_char(word,5,result,'0','0','0',0);
+	for(int i=0;i<5;i++) cout<<result[i]<<"\n";
+	return 0; 
 	//test
 	char start='0',end='0',b[100]={'b'};
 	int op=0,loop=0,qall=0;
