@@ -66,12 +66,12 @@ vector<vector<int> > build_graph(vector<string> str)
 			g[zihuan[i][j]].push_back(zihuan[i][j+1]);
 		if(zihuan[i].size()>1) g[zihuan[i].back()].push_back(zihuan[i][0]);
 	}
-	for(int i=0;i<n;i++) cout<<i<<" "<<str[i]<<"\n";
+	/*for(int i=0;i<n;i++) cout<<i<<" "<<str[i]<<"\n";
 	for(int i=0;i<n;i++)
 	{
 		for(auto j:g[i]) cout<<j<<" ";
 		cout<<endl;
-	}
+	}*/
 	return g;
 }
 vector<string> get_max(int n,vector<vector<int> > g,vector<string> str,
@@ -87,7 +87,7 @@ int op,char start,char end,set<char> ban)
 			rd[j]++;
 		if(op==1) dp[i]=str[i].size();
 		else dp[i]=1;
-		if(start!='0'&&str[i][0]!=start) dp[i]=-inf;
+		if(start!='\0'&&str[i][0]!=start) dp[i]=-inf;
 		if(ban.find(str[i][0])!=ban.end()) dp[i]=-inf;
 	}
 	for(int i=0;i<n;i++)
@@ -114,7 +114,7 @@ int op,char start,char end,set<char> ban)
 	//for(int i=0;i<n;i++) cout<<dp[i]<<" \n"[i==n-1];
 	int pos=0,mx=0;
 	for(int i=0;i<n;i++)
-		if(dp[i]>mx&&(end=='0'||str[i].back()==end))
+		if(dp[i]>mx&&(end=='\0'||str[i].back()==end))
 			mx=dp[i],pos=i;
 	
 	//cout<<mx<<" "<<pos<<"\n";
@@ -194,7 +194,7 @@ int op,char start,char end,set<char> ban)
 	{
 		for(int i=0;i<n;i++)
 		{
-			if(start!='0'&&start!=str[i][0]) continue;
+			if(start!='\0'&&start!=str[i][0]) continue;
 			now.push_back(str[i]);
 			char_len+=str[i].length();
 			circle_max(n,i,g,str,op,start,end,ban);
@@ -211,19 +211,39 @@ int op,char start,char end,set<char> ban)
 	else len=char_len;
 	if(len>max(now_max,1)) 
 	{
-		if(end=='0'||end==str[x].back())
+		if(end=='\0'||end==str[x].back())
 		{
 			now_max=len;
 			ans_circle.assign(now.begin(),now.end());
 		}
 	}
+	int to=-1;
 	for(auto i:g[x])
 	{
-		now.push_back(str[i]);
-		char_len+=str[i].length();
-		circle_max(n,i,g,str,op,start,end,ban);
-		char_len-=str[i].length();
+		if(vis[i]==0&&str[i].front()==str[i].back())
+		{
+			to=i;
+		}
+	}
+	if(to!=-1)
+	{
+		now.push_back(str[to]);
+		char_len+=str[to].length();
+		circle_max(n,to,g,str,op,start,end,ban);
+		char_len-=str[to].length();
 		now.pop_back();
+		return;
+	}
+	for(auto i:g[x])
+	{
+		if(vis[i]==0)
+		{
+			now.push_back(str[i]);
+			char_len+=str[i].length();
+			circle_max(n,i,g,str,op,start,end,ban);
+			char_len-=str[i].length();
+			now.pop_back();
+		}
 	}
 	vis[x]=0;
 }
@@ -234,7 +254,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 	vector<vector<int> > g=build_graph(all_str);
 	int sz=all_str.size();
 	set<char> ban;
-	if(banned!='0') ban.insert(banned);
+	if(banned!='\0') ban.insert(banned);
 	if(enable_loop)
 	{
 		ans_circle.clear();
@@ -247,7 +267,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 		{
 			result[cnt++]=const_cast<char*>(x.data());
 		}
-		return 0;
+		return cnt;
 	}
 	else
 	{
@@ -263,7 +283,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 			result[cnt++]=const_cast<char*>(x.data());
 			//cout<<x<<" "<<x.data()<<" "<<result[cnt-1]<<"\n";
 		}
-		return 0;
+		return cnt;
 	}
 }
 int gen_chain_char(char* words[], int len, char* result[],char head, char tail,char banned,bool enable_loop)
@@ -273,7 +293,7 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
 	vector<vector<int> > g=build_graph(all_str);
 	int sz=all_str.size();
 	set<char> ban;
-	if(banned!='0') ban.insert(banned);
+	if(banned!='\0') ban.insert(banned);
 	if(enable_loop)
 	{
 		ans_circle.clear();
@@ -286,7 +306,7 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
 		{
 			result[cnt++]=const_cast<char*>(x.data());
 		}
-		return 0;
+		return cnt;
 	}
 	else
 	{
@@ -302,7 +322,7 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
 			result[cnt++]=const_cast<char*>(x.data());
 			//cout<<result[0]<<"\n";
 		}
-		return 0;
+		return cnt;
 	}
 }
 int gen_chains_all(char* words[], int len, char* result[])
@@ -325,7 +345,7 @@ int gen_chains_all(char* words[], int len, char* result[])
 		for(auto y:x) tmp+=y,tmp+=" ";
 		result[cnt++]=const_cast<char*>(tmp.data());
 	}
-	return 0;
+	return cnt;
 }
 void print_ans(vector<string> ans)
 {
@@ -375,9 +395,9 @@ int main(int argc,char* argv[])
 	vector<vector<int> > g=build_graph(all_str);
 	//char* word[10]={"aec","cef","fb","bdfsdfrrd","dear"};
 	//char* result[10];
-	//gen_chain_word_char(word,5,result,'0','0','0',0);
+	//gen_chain_word_char(word,5,result,'\0','\0','\0',0);
 	//test
-	char start='0',end='0',b[100]={'b'};
+	char start='\0',end='\0',b[100]={'b'};
 	int op=-1,loop=0,qall=0;
 	set<char> ban;
 	//string cmd[10]={"-w","-c","-h","-t","-j","-r","-n"};
