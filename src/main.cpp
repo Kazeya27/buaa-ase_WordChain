@@ -298,14 +298,7 @@ int gen_chains_all(char* words[], int len, char* result[])
 	{
 		string tmp="";
 		for(auto y:x) tmp+=y,tmp+=" ";
-<<<<<<< HEAD:src/src.cpp
 		result[cnt++]=const_cast<char*>(tmp.data());
-=======
-		result[cnt++]=(char *)tmp.data();
-		// cout<<"\n";
-		cout << cnt << " ";
-		cout << result[0] << endl;
->>>>>>> 87d0904a2307061d2a22d9fc36de0ba4af0b4703:src/main.cpp
 	}
 	cout << result[0] << endl;
 	return cnt;
@@ -348,7 +341,7 @@ int main(int argc,char* argv[])
 	vector<vector<int> > g=build_graph(all_str);
 	char* word[10]={"aec","cef","fb","bdfsdfrrd","dear"};
 	char* result[10];
-	gen_chain_word_char(word,5,result,'0','0','0',0);
+	gen_chain_char(word,5,result,'0','0','0',0);
 	for(int i=0;i<5;i++) cout<<result[i]<<"\n";
 	return 0; 
 	//test
