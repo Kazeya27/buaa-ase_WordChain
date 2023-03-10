@@ -1,10 +1,4 @@
-#include<iostream>
-#include<vector>
-#include<set>
-#include<queue>
-#include<string>
-#include<fstream>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
 ifstream readFile;
 ofstream fout("output.txt");
@@ -257,8 +251,9 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 {
 	vector<string> all_str;
 	for(int i=0;i<len;i++) all_str.push_back(words[i]);
+	sort(all_str.begin(),all_str.end());
+	int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
 	vector<vector<int> > g=build_graph(all_str);
-	int sz=all_str.size();
 	set<char> ban;
 	if(banned!='\0') ban.insert(banned);
 	if(enable_loop)
@@ -296,8 +291,9 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
 {
 	vector<string> all_str;
 	for(int i=0;i<len;i++) all_str.push_back(words[i]);
+	sort(all_str.begin(),all_str.end());
+	int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
 	vector<vector<int> > g=build_graph(all_str);
-	int sz=all_str.size();
 	set<char> ban;
 	if(banned!='\0') ban.insert(banned);
 	if(enable_loop)
@@ -335,8 +331,9 @@ int gen_chains_all(char* words[], int len, char* result[])
 {
 	vector<string> all_str;
 	for(int i=0;i<len;i++) all_str.push_back(words[i]);
+	sort(all_str.begin(),all_str.end());
+	int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
 	vector<vector<int> > g=build_graph(all_str);
-	int sz=all_str.size();
 	if(!check(sz,g))
 	{
 		cout<<"fucked";
@@ -350,6 +347,7 @@ int gen_chains_all(char* words[], int len, char* result[])
 		string tmp="";
 		for(auto y:x) tmp+=y,tmp+=" ";
 		result[cnt++]=const_cast<char*>(tmp.data());
+		//cout<<result[cnt-1]<<"\n";
 	}
 	return cnt;
 }
@@ -399,9 +397,10 @@ int main(int argc,char* argv[])
 	int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
 	//print_ans(all_str);
 	vector<vector<int> > g=build_graph(all_str);
-	//char* word[10]={"aec","cef","fb","bdfsdfrrd","dear"};
-	//char* result[10];
-	//gen_chain_word_char(word,5,result,'\0','\0','\0',0);
+	char* word[10]={"woo","oom","moon","noox"};
+	char* result[10];
+	gen_chains_all(word,4,result);
+	return 0;
 	//test
 	char start='\0',end='\0',b[100]={'b'};
 	int op=-1,loop=0,qall=0;
