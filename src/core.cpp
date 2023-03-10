@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-#include<bits/stdc++.h>
-=======
 #include "core.h"
 #include<iostream>
 #include<vector>
@@ -9,7 +6,7 @@
 #include<string>
 #include<fstream>
 #include<algorithm>
->>>>>>> f3b40a6d4bd65d87e2427cfc7f41aa3d2b6f3bd0
+
 using namespace std;
 ifstream readFile;
 ofstream fout("output.txt");
