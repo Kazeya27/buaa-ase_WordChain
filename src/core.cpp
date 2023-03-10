@@ -360,7 +360,7 @@ void print_ans(vector<string> ans)
 }
 void print_all()
 {
-	if(all_list.size()<=1)
+	if(all_list.size()<1)
 	{
 		fout<<"no word chain\n";
 		return;
