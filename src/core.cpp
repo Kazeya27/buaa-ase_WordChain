@@ -274,7 +274,10 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 		int cnt=0;
 		for(auto x:ans_circle)
 		{
-			result[cnt++]=const_cast<char*>(x.data());
+			result[cnt]=new char[x.size()*sizeof(int)];
+			for(int i=0;i<x.size();i++) result[cnt][i]=x[i]; 
+			result[cnt][x.size()]='\0';
+			cnt++;
 		}
 		return cnt;
 	}
@@ -289,7 +292,10 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
 		int cnt=0;
 		for(auto x:ans)
 		{
-			result[cnt++]=const_cast<char*>(x.data());
+			result[cnt]=new char[x.size()*sizeof(int)];
+			for(int i=0;i<x.size();i++) result[cnt][i]=x[i]; 
+			result[cnt][x.size()]='\0';
+			cnt++;
 			//cout<<x<<" "<<x.data()<<" "<<result[cnt-1]<<"\n";
 		}
 		return cnt;
@@ -314,7 +320,10 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
 		int cnt=0;
 		for(auto x:ans_circle)
 		{
-			result[cnt++]=const_cast<char*>(x.data());
+			result[cnt]=new char[x.size()*sizeof(int)];
+			for(int i=0;i<x.size();i++) result[cnt][i]=x[i]; 
+			result[cnt][x.size()]='\0';
+			cnt++;
 		}
 		return cnt;
 	}
@@ -329,7 +338,10 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
 		int cnt=0;
 		for(auto x:ans)
 		{
-			result[cnt++]=const_cast<char*>(x.data());
+			result[cnt]=new char[x.size()*sizeof(int)];
+			for(int i=0;i<x.size();i++) result[cnt][i]=x[i]; 
+			result[cnt][x.size()]='\0';
+			cnt++;
 			//cout<<result[0]<<"\n";
 		}
 		return cnt;
@@ -350,13 +362,18 @@ int gen_chains_all(char* words[], int len, char* result[])
 	all_list.clear();
 	get_all(sz,g,all_str,-1);
 	int cnt=0;
+	char tt[20010];
 	for(auto x:all_list)
 	{
 		string tmp="";
 		for(auto y:x) tmp+=y,tmp+=" ";
-		result[cnt++]=const_cast<char*>(tmp.data());
-		//cout<<result[cnt-1]<<"\n";
+		result[cnt]=new char[tmp.size()*sizeof(int)];
+		for(int i=0;i<tmp.size();i++) result[cnt][i]=tmp[i]; 
+		result[cnt][tmp.size()]='\0';
+		cnt++;
+		//for(int i=0;i<cnt;i++) cout<<result[i]<<" ";
 	}
+	//for(int i=0;i<6;i++) cout<<result[i]<<"\n";
 	return cnt;
 }
 void print_ans(vector<string> ans)
@@ -396,8 +413,8 @@ int main(int argc,char* argv[])
 {
 	if(argc<2)
 	{
-		cout<<"too few para!";
-		return -2;
+		//cout<<"too few para!";
+		//return -2;
 	}
 	readFile.open(argv[argc-1], ios::in);
 	if(!readFile.is_open())
@@ -411,8 +428,8 @@ int main(int argc,char* argv[])
 	//print_ans(all_str);
 	vector<vector<int> > g=build_graph(all_str);
 	char* word[10]={"woo","oom","moon","noox"};
-	char* result[10];
-	gen_chains_all(word,4,result);
+	char* res[100];
+	gen_chains_all(word,4,res);
 	return 0;
 	//test
 	char start='\0',end='\0',b[100]={'b'};
