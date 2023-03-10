@@ -368,8 +368,8 @@ int gen_chains_all(char* words[], int len, char* result[])
 		string tmp="";
 		for(auto y:x) tmp+=y,tmp+=" ";
 		result[cnt]=new char[tmp.size()*sizeof(int)];
-		for(int i=0;i<tmp.size();i++) result[cnt][i]=tmp[i]; 
-		result[cnt][tmp.size()]='\0';
+		for(int i=0;i<tmp.size();i++) result[cnt][i]=tmp[i];
+		result[cnt][tmp.size()-1]='\0';
 		cnt++;
 		//for(int i=0;i<cnt;i++) cout<<result[i]<<" ";
 	}

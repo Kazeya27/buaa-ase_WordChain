@@ -1,6 +1,6 @@
 from ctypes import *
 
-dll = WinDLL("./core.dll")
+dll = WinDLL("../bin/core.dll")
 
 
 # int gen_chains_all(char* words[], int len, char* result[]);
@@ -74,6 +74,7 @@ def test():
 
 
 if __name__ == '__main__':
-    rst = gen_chain_word(["woo", "oom", "moon", "noox"],'w','0','0',False)
+    # rst = gen_chains_all(["woo", "oom", "moon", "noox"])
+    rst = gen_chain_word(["woo", "oom", "moon", "noox"],'w','\0','\0',False)
     print(rst)
     # test()
