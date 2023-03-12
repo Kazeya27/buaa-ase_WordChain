@@ -139,7 +139,7 @@ void answer_test(int index, char*words[], char*result[], int* rtn) {
     }
     else {
         chain_test(result,*rtn);
-        head_tail_ban_test(result,head,tail,banned,len);
+        head_tail_ban_test(result,head,tail,banned,*rtn);
     }
 }
 
