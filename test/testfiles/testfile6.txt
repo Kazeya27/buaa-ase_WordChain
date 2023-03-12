@@ -2,10 +2,10 @@ w
 t t
 
 
-Algebra
-Apple
-Zoo
-Elephant
+AlgebrA
+ApplE
+ZoO
+ElePhant
 Under
 Fox
 Dog

@@ -102,10 +102,10 @@ void answer_test(int index, char*words[], char*result[], int* rtn) {
         {
             char* ptr = new char[line.length() + 1];
             strcpy_s(ptr, line.length() + 1, line.c_str());
-            for (int i = 0; i < line.length(); i++)
-            {
-                ptr[i] += ('A' <= ptr[i] && ptr[i] <= 'Z') ? 'a' - 'A' : 0;
-            }
+//            for (int i = 0; i < line.length(); i++)
+//            {
+//                ptr[i] += ('A' <= ptr[i] && ptr[i] <= 'Z') ? 'a' - 'A' : 0;
+//            }
             buffer.push_back(ptr);
         }
     }
@@ -152,60 +152,196 @@ void unique_test(char*result[],int len) {
 }
 
 TEST(TestCase,AllNorm){
-    char* result[20002];
-    char* words[20002];
+    char* result[2002];
+    char* words[2002];
     int rtn;
     answer_test(1, words, result, &rtn);
     unique_test(result,rtn);
 }
 
 TEST(TestCase,AllEmpty){
-    char* result[20002];
-    char* words[20002];
+    char* result[2002];
+    char* words[2002];
     int rtn;
     answer_test(2, words, result, &rtn);
     unique_test(result,rtn);
 }
 
 TEST(TestCase,WordNorm){
-    char* result[20002];
-    char* words[20002];
+    char* result[2002];
+    char* words[2002];
     int rtn;
     answer_test(3, words, result, &rtn);
     unique_test(result,rtn);
 }
 
 TEST(TestCase,WordEmpty){
-    char* result[20002];
-    char* words[20002];
+    char* result[2002];
+    char* words[2002];
     int rtn;
     answer_test(4, words, result, &rtn);
     unique_test(result,rtn);
 }
 
 TEST(TestCase,WordHead){
-    char* result[20002];
-    char* words[20002];
+    char* result[2002];
+    char* words[2002];
     int rtn;
     answer_test(5, words, result, &rtn);
     unique_test(result,rtn);
 }
 
 TEST(TestCase,WordTail){
-    char* result[20002];
-    char* words[20002];
+    char* result[2002];
+    char* words[2002];
     int rtn;
     answer_test(6, words, result, &rtn);
     unique_test(result,rtn);
 }
 
 TEST(TestCase,WordBan){
-    char* result[20002];
-    char* words[20002];
+    char* result[2002];
+    char* words[2002];
     int rtn;
     answer_test(7, words, result, &rtn);
     unique_test(result,rtn);
 }
+
+TEST(TestCase,LetterNorm){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(8, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterHead){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(9, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterTail){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(10, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterBan){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(11, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,WordNormR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(12, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,WordHeadR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(14, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,WordTailR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(15, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,WordBanR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(16, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterNormR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(17, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterHeadR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(19, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterTailR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(20, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterBanR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(21, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,ALLNormCircle){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(22, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,WordNormCircle){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(23, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterNormCircle){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(24, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+//TEST(TestCase,LetterEmptyR){
+//    char* result[2002];
+//    char* words[2002];
+//    int rtn;
+//    answer_test(18, words, result, &rtn);
+//    unique_test(result,rtn);
+//}
+//
+//TEST(TestCase,WordEmptyR){
+//    char* result[2002];
+//    char* words[2002];
+//    int rtn;
+//    answer_test(13, words, result, &rtn);
+//    unique_test(result,rtn);
+//}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
