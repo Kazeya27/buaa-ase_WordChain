@@ -13,46 +13,64 @@ vector<vector<int> > build_graph(vector<string> str)
     vector<vector<int> > g(n,vector<int>());
     vector<int> z(n,0);
     vector<int> zihuan[30];
-    for(int i=0;i<n;i++)
+    for(int i=0;i<n;i++) {
         if(str[i].back()==str[i].front())
         {
             z[i]=1;
             zihuan[str[i].back()-'a'].push_back(i);
         }
-    for(int i=0;i<26;i++)
+    }
+
+    for(int i=0;i<26;i++) {
         sort(zihuan[i].begin(),zihuan[i].end());
+    }
+
     for(int i=0;i<n;i++)
     {
         for(int j=0;j<n;j++)
         {
-            if(i==j)
+            if(i==j) {
                 continue;
+            }
+
             if(str[i].back()==str[j].front())
             {
                 int ai=str[i].back()-'a',aj=str[j].back()-'a';
-                if(z[i]==1&&z[j]==1)
+                if(z[i]==1&&z[j]==1) {
                     continue;
+                }
+
                 if(z[i]==1)
                 {
-                    if(zihuan[ai].back()==i)
+                    if(zihuan[ai].back()==i) {
                         g[zihuan[ai].back()].push_back(j);
+                    }
+
                 }
                 else if(z[j]==1)
                 {
-                    if(zihuan[aj].back()==j)
+                    if(zihuan[aj].back()==j) {
                         g[i].push_back(zihuan[aj].front());
+                    }
+
                 }
-                else
+                else {
                     g[i].push_back(j);
+                }
+
             }
         }
     }
     for(int i=0;i<26;i++)
     {
-        for(int j=0;j<(int)zihuan[i].size()-1;j++)
+        for(int j=0;j<(int)zihuan[i].size()-1;j++) {
             g[zihuan[i][j]].push_back(zihuan[i][j+1]);
-        if(zihuan[i].size()>1)
+        }
+
+        if(zihuan[i].size()>1) {
             g[zihuan[i].back()].push_back(zihuan[i][0]);
+        }
+
     }
     /*for(int i=0;i<n;i++) cout<<i<<" "<<str[i]<<"\n";
     for(int i=0;i<n;i++)
@@ -264,8 +282,6 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
         vis=vector<int>(sz,0);
         circle_max(sz,-1,g,all_str,0,head,tail,ban);
         int cnt=0;
-        if(ans_circle.size()==1)
-            return 0;
         for(auto x:ans_circle)
         {
             result[cnt]=new char[x.size()*sizeof(int)];

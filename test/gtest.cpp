@@ -215,6 +215,14 @@ TEST(TestCase,LetterNorm){
     unique_test(result,rtn);
 }
 
+TEST(TestCase,LetterEmpty){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(25, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
 TEST(TestCase,LetterHead){
     char* result[2002];
     char* words[2002];
@@ -327,21 +335,29 @@ TEST(TestCase,LetterNormCircle){
     unique_test(result,rtn);
 }
 
-//TEST(TestCase,LetterEmptyR){
-//    char* result[2002];
-//    char* words[2002];
-//    int rtn;
-//    answer_test(18, words, result, &rtn);
-//    unique_test(result,rtn);
-//}
-//
-//TEST(TestCase,WordEmptyR){
-//    char* result[2002];
-//    char* words[2002];
-//    int rtn;
-//    answer_test(13, words, result, &rtn);
-//    unique_test(result,rtn);
-//}
+TEST(TestCase,Circle){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(26, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,LetterEmptyR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(18, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,WordEmptyR){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(13, words, result, &rtn);
+    unique_test(result,rtn);
+}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
