@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_set>
+#include "main.h"
 
 using namespace std;
 
@@ -54,7 +55,7 @@ void answer_test(int index, char*words[], char*result[], int* rtn) {
     int model;
     char head = '\0',tail = '\0',banned = '\0';
     bool enable_loop = false;
-    string fileName = "../test/testfiles/testfile" + to_string(index) + ".txt";
+    string fileName = "../test/CoreTests/testfile" + to_string(index) + ".txt";
     ifstream ifile;
     ifile.open(fileName,ios::in);
     if (!ifile.is_open()) {
@@ -149,6 +150,27 @@ void unique_test(char*result[],int len) {
         ASSERT_TRUE(unique.find(result[i]) == unique.end());
         unique.insert(result[i]);
     }
+}
+
+void cli_test(int index) {
+    char* argv[15];
+    int argc = 0;
+    string fileName = "../test/CliTests/config" + to_string(index) + ".txt";
+    ifstream ifile;
+    ifile.open(fileName,ios::in);
+    string line;
+    getline(ifile,line);
+    int realRtn = stoi(line);
+    while (getline(ifile, line))
+    {
+        if (!line.empty())
+        {
+            char* ptr = new char[line.length() + 1];
+            strcpy_s(ptr, line.length() + 1, line.c_str());
+            argv[argc++] = ptr;
+        }
+    }
+    ASSERT_EQ(main(argc,argv), realRtn);
 }
 
 TEST(TestCase,AllNorm){
@@ -359,7 +381,13 @@ TEST(TestCase,WordEmptyR){
     unique_test(result,rtn);
 }
 
-int main(int argc, char **argv) {
+TEST(TestCase,AllNormCli){
+    cli_test(1);
+}
+
+
+
+int nn(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();  // //RUN_ALL_TESTS()运行所有测试案例
 }

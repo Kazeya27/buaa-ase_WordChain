@@ -109,13 +109,13 @@ class OptionView(QWidget):
         model = self._model
         beginLetter = self.beginCharBox.currentText()
         if len(beginLetter) > 1:
-            beginLetter = '0'
+            beginLetter = '\0'
         endLetter = self.endCharBox.currentText()
         if len(endLetter) > 1:
-            endLetter = '0'
+            endLetter = '\0'
         banLetter = self.banCharBox.currentText()
         if len(banLetter) > 1:
-            banLetter = '0'
+            banLetter = '\0'
         enableLoop = self.circleBtn.isChecked()
         return model, beginLetter, endLetter, banLetter, enableLoop
 
