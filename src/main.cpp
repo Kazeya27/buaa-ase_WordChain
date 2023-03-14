@@ -190,10 +190,9 @@ int read_para(int argc,char *argv[])
         return PARAM_LACK;
     return 0;
 }
-void print_ans(int len,char* result[],int op)
+void print_ans(int len,char* result[],int operate)
 {
-    int i;
-    if(op==1)
+    if(operate==1)
         fout<<len<<"\n";
     for(int i=0;i<len;i++)
         fout<<result[i]<<"\n";
@@ -232,11 +231,11 @@ int main(int argc,char* argv[])
     if(qall==1)
     {
         reslen=gen_chains_all(words,len,result);
-        if(reslen<0) {
+        if(reslen == WORD_CIRCLE) {
             cerr << "exist word circle" << endl;
             return reslen;
         }
-        if (reslen > 20000) {
+        else if (reslen == RESULT_TOO_LONG) {
             cerr << "result too long" << endl;
             return RESULT_TOO_LONG;
         }
@@ -246,11 +245,11 @@ int main(int argc,char* argv[])
     if(op==0)
     {
         reslen=gen_chain_word(words,len,  result,  start,  ed, banned,loop);
-        if(reslen<0) {
+        if(reslen == WORD_CIRCLE) {
             cerr << "exist word circle" << endl;
             return reslen;
         }
-        if (reslen > 20000) {
+        else if (reslen == RESULT_TOO_LONG) {
             cerr << "result too long" << endl;
             return RESULT_TOO_LONG;
         }
@@ -260,11 +259,11 @@ int main(int argc,char* argv[])
     else
     {
         reslen=gen_chain_char(words,len,  result,  start,  ed, banned,loop);
-        if(reslen<0) {
+        if(reslen == WORD_CIRCLE) {
             cerr << "exist word circle" << endl;
             return reslen;
         }
-        if (reslen > 20000) {
+        else if (reslen == RESULT_TOO_LONG) {
             cerr << "result too long" << endl;
             return RESULT_TOO_LONG;
         }
