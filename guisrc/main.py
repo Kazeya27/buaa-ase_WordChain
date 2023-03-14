@@ -1,9 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit
+from PyQt5.QtWidgets import QApplication
 
 from MainView import MainView
-
-# todo 异常提示
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

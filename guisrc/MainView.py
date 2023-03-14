@@ -8,7 +8,6 @@ from PyQt5.QtWidgets import *
 from InputView import InputView
 from OptionView import OptionView
 from OutputView import OutputView
-from WarningView import WarningView
 
 
 class MainView(QWidget):
@@ -69,7 +68,7 @@ class MainView(QWidget):
         for result in results:
             text += result.decode('utf-8') + "\n"
         self.outputView.setOutputView(text)
-        self.runTime.setText("运行时间：" + str(round(end - start,2)))
+        self.runTime.setText("运行时间：" + str(round(end - start, 2)))
         # warn = WarningView("出现了blabla错误")
         # warn.show()
 
