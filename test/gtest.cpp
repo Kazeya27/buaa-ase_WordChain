@@ -161,6 +161,13 @@ void cli_test(int index) {
     string line;
     getline(ifile,line);
     int realRtn = stoi(line);
+    getline(ifile,line);
+    char*path = new char[line.length() + 20];
+    strcpy_s(path,18,"../test/CliTests/");
+//    cout << path << endl;
+    path = strcat(path,line.c_str());
+//    cout << path << endl;
+    argv[argc++] = (char*)"Wordlist.exe";
     while (getline(ifile, line))
     {
         if (!line.empty())
@@ -170,7 +177,12 @@ void cli_test(int index) {
             argv[argc++] = ptr;
         }
     }
-    ASSERT_EQ(main(argc,argv), realRtn);
+    argv[argc++] = path;
+//    cout << argc << endl;
+//    for (int i = 0;i<argc;i++)
+//        cout << argv[i] << endl;
+    int rtn = test_main(argc,argv);
+    ASSERT_EQ(rtn, realRtn);
 }
 
 TEST(TestCase,AllNorm){
@@ -381,13 +393,138 @@ TEST(TestCase,WordEmptyR){
     unique_test(result,rtn);
 }
 
+TEST(TestCase,WordNormCli){
+    cli_test(2);
+}
+
 TEST(TestCase,AllNormCli){
     cli_test(1);
 }
 
+TEST(TestCase,LetterNormCli){
+    cli_test(3);
+}
+
+TEST(TestCase,BanNormCli){
+    cli_test(12);
+}
+
+TEST(TestCase,ConflictA){
+    cli_test(4);
+}
+
+TEST(TestCase,ConflictB){
+    cli_test(5);
+}
+
+TEST(TestCase,ConflictC){
+    cli_test(6);
+}
+
+TEST(TestCase,ConflictD){
+    cli_test(10);
+}
+
+TEST(TestCase,ConflictE){
+    cli_test(25);
+}
+
+TEST(TestCase,ConflictF){
+    cli_test(26);
+}
+
+TEST(TestCase,ConflictG){
+    cli_test(27);
+}
+
+TEST(TestCase,ConflictH){
+    cli_test(28);
+}
+
+//TEST(TestCase,ConflictI){
+//    cli_test(29);
+//}
+
+TEST(TestCase,ParamLackA){
+    cli_test(7);
+}
+
+TEST(TestCase,ParamLackB){
+    cli_test(8);
+}
+
+TEST(TestCase,ParamLackC){
+    cli_test(9);
+}
+
+TEST(TestCase,ParamLackD){
+    cli_test(11);
+}
+
+TEST(TestCase,AllCircle){
+    cli_test(13);
+}
+
+TEST(TestCase,WordCircle){
+    cli_test(14);
+}
+
+TEST(TestCase,LetterCircle){
+    cli_test(15);
+}
 
 
-int nn(int argc, char **argv) {
+TEST(TestCase,HeadFormatError){
+    cli_test(16);
+}
+
+TEST(TestCase,BanFormatError){
+    cli_test(17);
+}
+
+TEST(TestCase,TailFormatError){
+    cli_test(18);
+}
+
+TEST(TestCase,ParamUndefined){
+    cli_test(19);
+}
+
+TEST(TestCase,FileType){
+    cli_test(20);
+}
+
+TEST(TestCase,FileNotSelected){
+    char* argv[15];
+    int argc = 0;
+    argv[argc++] = (char*)"Wordlist.exe";
+    argv[argc++] = (char*)"-w";
+    argv[argc++] = (char*)"-h";
+    argv[argc++] = (char*)"a";
+    ASSERT_EQ(test_main(argc,argv), -9);
+}
+
+TEST(TestCase,FileNotExist){
+    cli_test(21);
+}
+
+TEST(TestCase,ParamDuplicateH){
+    cli_test(22);
+}
+
+TEST(TestCase,ParamDuplicateT){
+    cli_test(23);
+}
+
+TEST(TestCase,ParamDuplicateJ){
+    cli_test(24);
+}
+
+TEST(TestCase,LongN){
+    cli_test(30);
+}
+
+int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();  // //RUN_ALL_TESTS()运行所有测试案例
 }

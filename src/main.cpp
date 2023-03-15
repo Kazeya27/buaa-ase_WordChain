@@ -280,11 +280,6 @@ int test_main(int argc,char* argv[])
         readFile.close();
         return reslen;
     }
-    else if (reslen > 20000) {
-        cerr << "result too long" << endl;
-        readFile.close();
-        return RESULT_TOO_LONG;
-    }
     print_ans(reslen,result,0);
     readFile.close();
     return 0;
