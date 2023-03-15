@@ -369,6 +369,14 @@ TEST(TestCase,LetterNormCircle){
     unique_test(result,rtn);
 }
 
+TEST(TestCase,LetterHeadCircle){
+    char* result[2002];
+    char* words[2002];
+    int rtn;
+    answer_test(27, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
 TEST(TestCase,Circle){
     char* result[2002];
     char* words[2002];
