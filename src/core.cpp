@@ -283,7 +283,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
         circle_max(sz,-1,g,all_str,0,head,tail,ban);
         int cnt=0;
         if (ans_circle.size() > 20000) {
-            return -11;
+            return ans_circle.size();
         }
         for(auto x:ans_circle)
         {
@@ -307,7 +307,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
         if(ans.size()==1)
             return 0;
         if (ans.size() > 20000) {
-            return -11;
+            return ans_circle.size();
         }
         for(auto x:ans)
         {
@@ -347,7 +347,7 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
         if(ans_circle.size()==1)
             return 0;
         if (ans_circle.size() > 20000) {
-            return -11;
+            return ans_circle.size();
         }
         for(auto x:ans_circle)
         {
@@ -370,7 +370,7 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
         if(ans.size()==1)
             return 0;
         if (ans.size() > 20000) {
-            return -11;
+            return ans_circle.size();
         }
         int cnt=0;
         for(auto x:ans)
@@ -406,7 +406,7 @@ int gen_chains_all(char* words[], int len, char* result[])
     get_all(sz,g,all_str,-1);
     int cnt=0;
     if (all_list.size() > 20000) {
-        return -11;
+        return all_list.size();
     }
     for(auto x:all_list)
     {
