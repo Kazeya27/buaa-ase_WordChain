@@ -235,6 +235,9 @@ int main(int argc,char* argv[])
         else if (res == PARAM_DUPLICATE) {
             cerr << "duplicate head/tail/reject letter" << endl;
         }
+        else if (res == PARAM_UNDEFINED) {
+            cerr << "undefined parameter!" << endl;
+        }
         readFile.close();
         return res;
     }
