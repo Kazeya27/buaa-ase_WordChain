@@ -47,7 +47,7 @@ def gen_chain_word(words, head, tail, banned, enable_loop):
         rst = []
         WarningView("结果过长，请检查数据")
     elif cnt >= 0:
-        rst = [str(cnt).encode('utf-8')]
+        rst = []
         for i in range(1, cnt + 1):
             rst.append(c_rst_ptr[i - 1])
     else:
@@ -73,7 +73,7 @@ def gen_chain_char(words, head, tail, banned, enable_loop):
         rst = []
         WarningView("结果过长，请检查数据")
     elif cnt >= 0:
-        rst = [str(cnt).encode('utf-8')]
+        rst = []
         for i in range(1, cnt + 1):
             rst.append(c_rst_ptr[i - 1])
     else:
