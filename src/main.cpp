@@ -7,7 +7,7 @@
 #include "main.h"
 using namespace std;
 ifstream readFile;
-ofstream fout("solution.txt");
+
 
 //typedef int(*Func1)(char* words[], int len, char* result[], char head, char tail, char banned, bool enable_loop);
 //typedef int(*Func2)(char* words[], int len, char* result[]);
@@ -48,17 +48,22 @@ vector<string> input()
         if(now.size()>0)
             res.push_back(now);
     }
+    readFile.close();
     return res;
 }
+
 int check_file(int argc,char* argv[])
 {
-    string fn=argv[argc-1];
+    string fn;
     bool fileFlag = false;
-    for (int i = 0;fn[i];i++) {
-        if (fn[i] == '.')
-        {
-            fileFlag = true;
-            break;
+    for (int j = 1;j<argc && !fileFlag;j++) {
+        fn=argv[j];
+        for (int i = 0;fn[i];i++) {
+            if (fn[i] == '.')
+            {
+                fileFlag = true;
+                break;
+            }
         }
     }
     if(!fileFlag)
@@ -118,16 +123,16 @@ int op=-1,loop=0;
 
 int read_para(int argc,char *argv[],int* qall)
 {
-    bool flagH = false,flagT = false,flagJ = false;
-    for(int i=1;i<argc-1;i++)
+    bool flagH = false,flagT = false,flagJ = false; // 记录-h,-t,-j参数是否已经出现过
+    for(int i=1;i<argc-1;i++)                       // 遍历参数列表
     {
         string ag=argv[i];
-        if(ag=="-w")
+        if(ag=="-w")                                // -w参数
         {
-            if(checkp(2)<0)
-                return PARAM_CONFLICT;
-            arg[2]=1;
-            op=0;
+            if(checkp(2)<0)                      // 异常检测
+                return PARAM_CONFLICT;              // 返回异常码
+            arg[2]=1;                               // 记录已有的参数
+            op=0;                                   // 记录操作方法
         }
         else if(ag=="-c")
         {
@@ -204,15 +209,18 @@ int read_para(int argc,char *argv[],int* qall)
         return PARAM_LACK;
     return 0;
 }
+
 void print_ans(int len,char* result[],int operate)
 {
+    ofstream fout("solution.txt");
     if(operate==1)
         fout<<len<<"\n";
     for(int i=0;i<len;i++)
         fout<<result[i]<<"\n";
+    fout.close();
 }
 
-int main(int argc,char* argv[])
+int test_main(int argc,char* argv[])
 {
     char* words[20010];
     char* result[20010];
@@ -230,7 +238,7 @@ int main(int argc,char* argv[])
     res=read_para(argc,argv,&qall);
     if(res<0) {
         if (res == PARAM_CONFLICT) {
-            cerr << "selected parameter conflicts" << endl;
+            cerr << "selected parameters conflict" << endl;
         }
         else if (res == PARAM_DUPLICATE) {
             cerr << "duplicate head/tail/reject letter" << endl;
@@ -238,7 +246,6 @@ int main(int argc,char* argv[])
         else if (res == PARAM_UNDEFINED) {
             cerr << "undefined parameter!" << endl;
         }
-        readFile.close();
         return res;
     }
 
@@ -258,16 +265,13 @@ int main(int argc,char* argv[])
         reslen=gen_chains_all(words,len,result);
         if(reslen == WORD_CIRCLE) {
             cerr << "exist word circle" << endl;
-            readFile.close();
             return reslen;
         }
         else if (reslen > 20000) {
             cerr << "result too long" << endl;
-            readFile.close();
             return RESULT_TOO_LONG;
         }
         print_ans(reslen,result,1);
-        readFile.close();
         return 0;
     }
     if(op==0)
@@ -280,10 +284,8 @@ int main(int argc,char* argv[])
     }
     if(reslen == WORD_CIRCLE) {
         cerr << "exist word circle" << endl;
-        readFile.close();
         return reslen;
     }
     print_ans(reslen,result,0);
-    readFile.close();
     return 0;
 }

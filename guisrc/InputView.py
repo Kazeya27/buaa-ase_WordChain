@@ -2,6 +2,8 @@ import sys
 
 from PyQt5.QtWidgets import *
 
+from WarningView import WarningView
+
 
 class InputView(QWidget):
     def __init__(self):
@@ -30,10 +32,13 @@ class InputView(QWidget):
         filename, t = QFileDialog.getOpenFileName(self, "打开文件", '', '文本文件(*.txt)')
         # 防止取消打开文件后闪退
         if filename:
-            self.filePath.setText(filename)
-            with open(filename, 'r', encoding='utf-8', errors='ignore') as f:
-                data = f.read()
-            self.inputBox.setText(data)
+            if not filename.endswith(".txt"):
+                WarningView("请选择txt文件输入")
+            else:
+                self.filePath.setText(filename)
+                with open(filename, 'r', encoding='utf-8', errors='ignore') as f:
+                    data = f.read()
+                self.inputBox.setText(data)
 
     def getInputData(self):
         return self.inputBox.toPlainText()
