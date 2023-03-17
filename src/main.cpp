@@ -77,7 +77,7 @@ int check_file(int argc,char* argv[])
         cerr <<"not .txt file!" << endl;
         return FILE_TYPE_WRONG;
     }
-    readFile.open(argv[argc-1], ios::in);
+    readFile.open(fn, ios::in);
     if(!readFile.is_open())
     {
         cerr <<"open file failed!" << endl;
@@ -124,7 +124,7 @@ int op=-1,loop=0;
 int read_para(int argc,char *argv[],int* qall)
 {
     bool flagH = false,flagT = false,flagJ = false; // 记录-h,-t,-j参数是否已经出现过
-    for(int i=1;i<argc-1;i++)                       // 遍历参数列表
+    for(int i=1;i<argc;i++)                       // 遍历参数列表
     {
         string ag=argv[i];
         if(ag=="-w")                                // -w参数
@@ -202,6 +202,15 @@ int read_para(int argc,char *argv[],int* qall)
         }
         else
         {
+            bool fileFlag = false;
+            for (int j = 0;j<ag.size();j++) {
+                if (ag[j] == '.') {
+                    fileFlag = true;
+                    break;
+                }
+            }
+            if (fileFlag)
+                continue;
             return PARAM_UNDEFINED;
         }
     }
@@ -220,7 +229,7 @@ void print_ans(int len,char* result[],int operate)
     fout.close();
 }
 
-int test_main(int argc,char* argv[])
+int main(int argc,char* argv[])
 {
     char* words[20010];
     char* result[20010];
