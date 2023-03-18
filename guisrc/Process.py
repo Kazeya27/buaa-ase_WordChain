@@ -17,7 +17,7 @@ def gen_chains_all(words):
     c_rst_ptr = (c_char_p * 20005)()
     cnt = dll.gen_chains_all(words_ptr, c_len, c_rst_ptr)
     # print(c_rst_ptr[0])
-    if cnt > 20000:
+    if cnt == -2147483646:
         rst = []
         WarningView("结果过长，请检查数据")
     elif cnt >= 0:
@@ -25,6 +25,7 @@ def gen_chains_all(words):
         for i in range(1, cnt + 1):
             rst.append(c_rst_ptr[i - 1])
     else:
+        print(cnt)
         rst = []
         WarningView("存在单词环，请检查数据或允许单词环")
     return rst
@@ -43,7 +44,7 @@ def gen_chain_word(words, head, tail, banned, enable_loop):
     c_banned = c_char(banned.encode('utf-8'))
     c_loop = c_bool(enable_loop)
     cnt = dll.gen_chain_word(words_ptr, c_len, c_rst_ptr, c_head, c_tail, c_banned, c_loop)
-    if cnt > 20000:
+    if cnt == -2147483646:
         rst = []
         WarningView("结果过长，请检查数据")
     elif cnt >= 0:
@@ -69,7 +70,7 @@ def gen_chain_char(words, head, tail, banned, enable_loop):
     c_banned = c_char(banned.encode('utf-8'))
     c_loop = c_bool(enable_loop)
     cnt = dll.gen_chain_char(words_ptr, c_len, c_rst_ptr, c_head, c_tail, c_banned, c_loop)
-    if cnt > 20000:
+    if cnt == -2147483646:
         rst = []
         WarningView("结果过长，请检查数据")
     elif cnt >= 0:
