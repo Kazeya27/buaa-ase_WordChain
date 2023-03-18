@@ -273,6 +273,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
                 all_str[i][j]^=32;
     sort(all_str.begin(),all_str.end());
     int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
+    all_str.erase(all_str.begin()+sz,all_str.end());
     vector<vector<int> > g=build_graph(all_str);
     set<char> ban;
     if(banned!='\0')
@@ -329,6 +330,7 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
                 all_str[i][j]^=32;
     sort(all_str.begin(),all_str.end());
     int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
+    all_str.erase(all_str.begin()+sz,all_str.end());
     vector<vector<int> > g=build_graph(all_str);
     set<char> ban;
     if(banned!='\0')
@@ -387,6 +389,7 @@ int gen_chains_all(char* words[], int len, char* result[])
                 all_str[i][j]^=32;
     sort(all_str.begin(),all_str.end());
     int sz=unique(all_str.begin(),all_str.end())-all_str.begin();
+    all_str.erase(all_str.begin()+sz,all_str.end());
     vector<vector<int> > g=build_graph(all_str);
     if(!check(sz,g))
     {
