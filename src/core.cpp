@@ -341,8 +341,6 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
         vis=vector<int>(sz,0);
         circle_max(sz,-1,g,all_str,1,head,tail,ban);
         int cnt=0;
-        if(ans_circle.size()==1)
-            return 0;
         for(auto x:ans_circle)
         {
             result[cnt]=new char[x.size()*sizeof(int)];
