@@ -213,8 +213,6 @@ void circle_max(int n,int x,vector<vector<int> > g,vector<string> str,
         }
         return;
     }
-    if(vis[x]==1)
-        return;
     if(ban.find(str[x][0])!=ban.end())
         return;
     vis[x]=1;

@@ -238,7 +238,7 @@ void print_ans(int len,char* result[],int operate)
     fout.close();
 }
 
-int main(int argc,char* argv[])
+int test_main(int argc,char* argv[])
 {
     char* words[20010];
     char* result[20010];
@@ -251,8 +251,11 @@ int main(int argc,char* argv[])
     for (int i = 0;i<10;i++)
         arg[i] = 0;
     int res=check_file(argc,argv);
-    if(res<0)
+    if(res<0) {
+        readFile.close();
         return res;
+    }
+
     res=read_para(argc,argv,&qall);
     if(res<0) {
         if (res == PARAM_CONFLICT) {
@@ -264,6 +267,7 @@ int main(int argc,char* argv[])
         else if (res == PARAM_UNDEFINED) {
             cerr << "undefined parameter!" << endl;
         }
+        readFile.close();
         return res;
     }
 
@@ -283,13 +287,16 @@ int main(int argc,char* argv[])
         reslen=gen_chains_all(words,len,result);
         if(reslen == WORD_CIRCLE) {
             cerr << "exist word circle" << endl;
+            readFile.close();
             return reslen;
         }
         else if (reslen > 20000) {
             cerr << "result too long" << endl;
+            readFile.close();
             return RESULT_TOO_LONG;
         }
         print_ans(reslen,result,1);
+        readFile.close();
         return 0;
     }
     if(op==0)
@@ -302,8 +309,11 @@ int main(int argc,char* argv[])
     }
     if(reslen == WORD_CIRCLE) {
         cerr << "exist word circle" << endl;
+        readFile.close();
         return reslen;
     }
     print_ans(reslen,result,0);
+    readFile.close();
+
     return 0;
 }
