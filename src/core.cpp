@@ -131,6 +131,8 @@ vector<string> get_max(int n,vector<vector<int> > g,vector<string> str,
 
     //cout<<mx<<" "<<pos<<"\n";
     vector<string> res;
+    if(mx==0)
+        return res;
     while(pos!=-1)
     {
         res.push_back(str[pos]);

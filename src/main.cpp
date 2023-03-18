@@ -214,6 +214,15 @@ int read_para(int argc,char *argv[],int* qall)
             return PARAM_UNDEFINED;
         }
     }
+    if (start >= 'A' && start <= 'Z') {
+        start += 32;
+    }
+    if (ed >= 'A' && ed <= 'Z') {
+        ed += 32;
+    }
+    if (banned >= 'A' && banned <= 'Z') {
+        banned += 32;
+    }
     if(*qall==0&&op==-1)
         return PARAM_LACK;
     return 0;
