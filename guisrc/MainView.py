@@ -68,7 +68,7 @@ class MainView(QWidget):
         for result in results:
             text += result.decode('utf-8') + "\n"
         self.outputView.setOutputView(text)
-        self.runTime.setText("运行时间：" + str(round(end - start, 2)))
+        self.runTime.setText("运行时间：" + str(round(end - start, 2)) + "s")
         # warn = WarningView("出现了blabla错误")
         # warn.show()
 

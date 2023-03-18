@@ -1,4 +1,6 @@
 -2
 chain.txt
 -j
-a
+A
+-h
+b

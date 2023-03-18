@@ -78,30 +78,27 @@ class OptionView(QWidget):
         layout.addWidget(addition)
         self.setLayout(layout)
 
+    def setAdditionEnabled(self, isTrue: bool):
+        self.beginCharBox.setEnabled(isTrue)
+        self.endCharBox.setEnabled(isTrue)
+        self.banCharBox.setEnabled(isTrue)
+        self.circleBtn.setEnabled(isTrue)
+        if not isTrue:
+            self.beginCharBox.setCurrentIndex(0)
+            self.endCharBox.setCurrentIndex(0)
+            self.banCharBox.setCurrentIndex(0)
+
     def clickAllBtn(self):
         self._model = 0
-        self.beginCharBox.setEnabled(False)
-        self.beginCharBox.setCurrentIndex(0)
-        self.endCharBox.setEnabled(False)
-        self.endCharBox.setCurrentIndex(0)
-        self.banCharBox.setEnabled(False)
-        self.banCharBox.setCurrentIndex(0)
-        self.circleBtn.setEnabled(False)
-        self.circleBtn.setChecked(False)
+        self.setAdditionEnabled(False)
 
     def clickWordBtn(self):
         self._model = 1
-        self.beginCharBox.setEnabled(True)
-        self.endCharBox.setEnabled(True)
-        self.banCharBox.setEnabled(True)
-        self.circleBtn.setEnabled(True)
+        self.setAdditionEnabled(True)
 
     def clickLetterBtn(self):
         self._model = 2
-        self.beginCharBox.setEnabled(True)
-        self.endCharBox.setEnabled(True)
-        self.banCharBox.setEnabled(True)
-        self.circleBtn.setEnabled(True)
+        self.setAdditionEnabled(True)
 
     def getOption(self):
         model = self._model

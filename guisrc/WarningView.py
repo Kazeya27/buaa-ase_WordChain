@@ -9,4 +9,3 @@ class WarningView(QWidget):
         warn.setIcon(QMessageBox.Critical)
         warn.setWindowTitle("异常提示")
         warn.exec_()
-
