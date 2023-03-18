@@ -244,6 +244,7 @@ void circle_max(int n,int x,vector<vector<int> > g,vector<string> str,
         circle_max(n,to,g,str,op,start,end,ban);
         char_len-=str[to].length();
         now.pop_back();
+        vis[x]=0;
         return;
     }
     for(auto i:g[x])
@@ -274,7 +275,7 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
     set<char> ban;
     if(banned!='\0')
         ban.insert(banned);
-    if(enable_loop)
+    if(enable_loop&&!check(sz,g))
     {
         ans_circle.clear();
         now_max=0;
@@ -330,7 +331,7 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
     set<char> ban;
     if(banned!='\0')
         ban.insert(banned);
-    if(enable_loop)
+    if(enable_loop&&!check(sz,g))
     {
         ans_circle.clear();
         now_max=0;
