@@ -185,8 +185,8 @@ void cli_test(int index) {
     delete []path;
     ASSERT_EQ(rtn, realRtn);
 }
-static char* result[2002];
-static char* words[2002];
+static char* result[20002];
+static char* words[20002];
 TEST(TestCase,AllNorm){
 
     int rtn;
@@ -359,6 +359,36 @@ TEST(TestCase,LetterSet){
 TEST(TestCase,Circle2){
     int rtn;
     answer_test(29, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,Random1){
+    int rtn;
+    answer_test(30, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,Random2){
+    int rtn;
+    answer_test(31, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,Random3){
+    int rtn;
+    answer_test(32, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,Random4){
+    int rtn;
+    answer_test(33, words, result, &rtn);
+    unique_test(result,rtn);
+}
+
+TEST(TestCase,Random5){
+    int rtn;
+    answer_test(34, words, result, &rtn);
     unique_test(result,rtn);
 }
 
