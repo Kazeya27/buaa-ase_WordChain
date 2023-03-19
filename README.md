@@ -14,14 +14,14 @@ WordListProject
 ├── guisrc                                    // gui源码
 │   ├── main.py
 │   ├── ....
-├── src										  // 计算核心源码
+├── src                                       // 计算核心源码
 │   └── main.cpp
 │   └── ...
-├── test									  // 单元测试源码及数据
+├── test                                      // 单元测试源码及数据
 │   └── CliTests
 │   └── CoreTests
 │   └── gtest.cpp
-├── CMakeLists.txt							  // CMake配置文件
+├── CMakeLists.txt                            // CMake配置文件
 └── README.md
 ```
 
