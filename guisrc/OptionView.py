@@ -87,6 +87,7 @@ class OptionView(QWidget):
             self.beginCharBox.setCurrentIndex(0)
             self.endCharBox.setCurrentIndex(0)
             self.banCharBox.setCurrentIndex(0)
+            self.circleBtn.setChecked(False)
 
     def clickAllBtn(self):
         self._model = 0
