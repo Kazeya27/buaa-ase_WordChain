@@ -213,8 +213,6 @@ void circle_max(int n,int x,vector<vector<int> > g,vector<string> str,
         }
         return;
     }
-    if(vis[x]==1)
-        return;
     if(ban.find(str[x][0])!=ban.end())
         return;
     vis[x]=1;
@@ -305,8 +303,6 @@ int gen_chain_word(char* words[], int len, char* result[], char head, char tail,
         }
         vector<string> ans=get_max(sz,g,all_str,0,head,tail,ban);
         int cnt=0;
-        if(ans.size()==1)
-            return 0;
         for(auto x:ans)
         {
             result[cnt]=new char[x.size()*sizeof(int)];
@@ -343,8 +339,6 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
         vis=vector<int>(sz,0);
         circle_max(sz,-1,g,all_str,1,head,tail,ban);
         int cnt=0;
-        if(ans_circle.size()==1)
-            return 0;
         for(auto x:ans_circle)
         {
             result[cnt]=new char[x.size()*sizeof(int)];
@@ -363,8 +357,6 @@ int gen_chain_char(char* words[], int len, char* result[],char head, char tail,c
             return -3;
         }
         vector<string> ans=get_max(sz,g,all_str,1,head,tail,ban);
-        if(ans.size()==1)
-            return 0;
         int cnt=0;
         for(auto x:ans)
         {

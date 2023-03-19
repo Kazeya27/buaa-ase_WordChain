@@ -238,7 +238,7 @@ void print_ans(int len,char* result[],int operate)
     fout.close();
 }
 
-int main(int argc,char* argv[])
+int test_main(int argc,char* argv[])
 {
     char* words[20010];
     char* result[20010];
