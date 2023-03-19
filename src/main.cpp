@@ -232,7 +232,7 @@ void print_ans(int len,char* result[],int operate)
 {
     ofstream fout("solution.txt");
     if(operate==1)
-        fout<<len<<"\n";
+        cout<<len<<"\n";
     for(int i=0;i<len;i++)
         fout<<result[i]<<"\n";
     fout.close();
